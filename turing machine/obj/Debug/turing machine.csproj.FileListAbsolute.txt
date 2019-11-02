@@ -1,0 +1,7 @@
+C:\Users\даниил\Documents\study\3 семестр\ООП\turing machine\bin\Debug\turing machine.exe.config
+C:\Users\даниил\Documents\study\3 семестр\ООП\turing machine\bin\Debug\turing machine.exe
+C:\Users\даниил\Documents\study\3 семестр\ООП\turing machine\bin\Debug\turing machine.pdb
+C:\Users\даниил\Documents\study\3 семестр\ООП\turing machine\obj\Debug\turing machine.csprojAssemblyReference.cache
+C:\Users\даниил\Documents\study\3 семестр\ООП\turing machine\obj\Debug\turing machine.csproj.CoreCompileInputs.cache
+C:\Users\даниил\Documents\study\3 семестр\ООП\turing machine\obj\Debug\turing machine.exe
+C:\Users\даниил\Documents\study\3 семестр\ООП\turing machine\obj\Debug\turing machine.pdb
