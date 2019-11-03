@@ -12,7 +12,8 @@ namespace turing_machine
     {
         static void Main(string[] args)
         {
-            TuringMachine.StartTuringProgramFromFile(@"..\..\File.txt");
+            string path = @"..\..\TuringMachinePrograms\" + File.ReadAllText(@"..\..\name.txt");
+            TuringMachine.StartTuringProgramFromFile(path);
         }
 
         public class TuringMachine
