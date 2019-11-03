@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace turing_machine
 {
@@ -11,21 +12,21 @@ namespace turing_machine
     {
         static void Main(string[] args)
         {
-            ParenthesesRemoval();
+            TuringMachine.StartTuringProgramFromFile(@"..\..\File.txt");
         }
 
         public class TuringMachine
         {
-            char[] _word;
+            List<char> _word;
             int _index;
             int _q;
             Dictionary<int, Dictionary<char, Command>> _tacts;
 
             public TuringMachine(string word)
             {
-                string emptyChars = "                 ";
-                _word = (emptyChars + word + emptyChars).ToCharArray();
-                _index = emptyChars.Length;
+                _word = new List<char>();
+                _word.AddRange((" " + word + " ").ToCharArray());
+                _index = 1;
                 _q = 1;
                 _tacts = new Dictionary<int, Dictionary<char, Command>>();
             }
@@ -33,7 +34,7 @@ namespace turing_machine
             public char[] Execute()
             {
                 ExecuteCommand(_tacts[_q][_word[_index]]);
-                return _word;
+                return _word.ToArray();
             }
 
             void ExecuteCommand(Command command)
@@ -43,9 +44,11 @@ namespace turing_machine
                 {
                     case Direct.R:
                         _index++;
+                        if (_index == _word.Count) _word.Add(' ');
                         break;
                     case Direct.L:
                         _index--;
+                        if (_index == 0) _word.Insert(0, ' ');
                         break;
                     case Direct.N:
                         break;
@@ -68,7 +71,46 @@ namespace turing_machine
                 return false;
             }
 
+            static public void StartTuringProgramFromFile(string filePath)
+            {
+                TuringMachine turingMachine = null;
+                using (StreamReader file = new StreamReader(filePath))
+                {
+                    while (!file.EndOfStream)
+                    {
+                        if ((char)file.Peek() == '#') file.ReadLine();
+                        else
+                        {
+                            string line = file.ReadLine();
+                            if (!string.IsNullOrWhiteSpace(line))
+                            {
+                                if (line.Contains("word"))
+                                {
+                                    int index = line.IndexOf('=');
+                                    turingMachine = new TuringMachine(line.Substring(++index));
+                                }
+                                else if (turingMachine != null)
+                                {
+                                    string[] parts = line.Split(new char[]{ ',', ':' } );
+                                    int current_state = Convert.ToInt32(parts[1]);
+                                    char current_symbol = parts[0].ToCharArray()[0];
 
+                                    char new_symbol = parts[2].ToCharArray()[0];
+                                    int new_state = Convert.ToInt32(parts[3]);
+                                    Direct direct = Direct.N;
+                                    if (parts[4] == "R") direct = Direct.R;
+                                    else if (parts[4] == "L") direct = Direct.L;
+
+                                    turingMachine.AddCommand(current_symbol, current_state, new Command(new_symbol, new_state, direct));
+                                }
+                            }
+                        }
+
+                    }
+                }
+                Console.WriteLine(turingMachine.Execute());
+                Console.ReadLine();
+            }
         }
         public enum Direct { R, L, N }
         public class Command
@@ -79,70 +121,12 @@ namespace turing_machine
 
             public Command(char s, int q, Direct d)
             {
-                this.symbol = s;
+                symbol = s;
                 this.q = q;
-                this.direct = d;
+                direct = d;
             }
 
         }
-
-
-        static public void CharacterOffset()
-        {
-            TuringMachine turingMachine = new TuringMachine("abcbabbc");
-            turingMachine.AddCommand('a', 1, new Command(' ', 2, Direct.R));
-            turingMachine.AddCommand('b', 1, new Command(' ', 3, Direct.R));
-            turingMachine.AddCommand('c', 1, new Command(' ', 4, Direct.R));
-            turingMachine.AddCommand(' ', 1, new Command(' ', 0, Direct.N));
-            turingMachine.AddCommand('a', 2, new Command('a', 2, Direct.R));
-            turingMachine.AddCommand('b', 2, new Command('b', 2, Direct.R));
-            turingMachine.AddCommand('c', 2, new Command('c', 2, Direct.R));
-            turingMachine.AddCommand(' ', 2, new Command('a', 0, Direct.N));
-            turingMachine.AddCommand('a', 3, new Command('a', 3, Direct.R));
-            turingMachine.AddCommand('b', 3, new Command('b', 3, Direct.R));
-            turingMachine.AddCommand('c', 3, new Command('c', 3, Direct.R));
-            turingMachine.AddCommand(' ', 3, new Command('a', 0, Direct.N));
-            turingMachine.AddCommand('a', 4, new Command('a', 4, Direct.R));
-            turingMachine.AddCommand('b', 4, new Command('b', 4, Direct.R));
-            turingMachine.AddCommand('c', 4, new Command('c', 4, Direct.R));
-            turingMachine.AddCommand(' ', 4, new Command('a', 0, Direct.N));
-            Console.WriteLine(turingMachine.Execute());
-            Console.ReadLine();
-        }
-
-        static public void ParenthesesRemoval()
-        {
-            TuringMachine turingMachine = new TuringMachine(")(()(()");
-
-            turingMachine.AddCommand('(', 1, new Command('(', 2, Direct.R));
-            turingMachine.AddCommand(')', 1, new Command(')', 1, Direct.R));
-            turingMachine.AddCommand('*', 1, new Command('*', 4, Direct.L));
-            turingMachine.AddCommand(' ', 1, new Command(' ', 0, Direct.N));
-
-            turingMachine.AddCommand('(', 2, new Command('(', 2, Direct.R));
-            turingMachine.AddCommand(')', 2, new Command('*', 3, Direct.L));
-            turingMachine.AddCommand('*', 2, new Command('*', 4, Direct.L));
-            turingMachine.AddCommand(' ', 2, new Command(' ', 0, Direct.N));
-
-            turingMachine.AddCommand('(', 3, new Command('*', 4, Direct.L));
-            turingMachine.AddCommand('*', 3, new Command(' ', 1, Direct.R));
-
-            turingMachine.AddCommand('(', 4, new Command('*', 5, Direct.R));
-            turingMachine.AddCommand(')', 4, new Command('*', 6, Direct.R));
-            turingMachine.AddCommand('*', 4, new Command('*', 4, Direct.L));
-            turingMachine.AddCommand(' ', 4, new Command(' ', 3, Direct.R));
-
-            turingMachine.AddCommand('*', 5, new Command('(', 4, Direct.L));
-
-            turingMachine.AddCommand('*', 6, new Command(')', 4, Direct.L));
-
-
-            Console.WriteLine(turingMachine.Execute());
-            Console.ReadLine();
-        }
-
-
-
 
 
     }
