@@ -1,0 +1,11 @@
+Numbers = 2
+word=ababbbaaabbbbaa
+
+#запись во 2 и 3 ленты
+1,a -1,a ,LN
+1,b -1,b ,LN
+1,  -2,  ,RN
+
+2,a -2,aa,RL
+2,b -2,bb,RL
+2,  -0,  ,NN

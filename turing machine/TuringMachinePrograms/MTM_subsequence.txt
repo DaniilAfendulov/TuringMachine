@@ -1,0 +1,124 @@
+Numbers = 3
+word=abcbabbc
+
+#запись во 2 и 3 ленты
+1,a  -2,aaa,LNN
+1,b  -2,bbb,LNN
+1,#  -2,###,LNN
+1,   -0,   ,NNN
+
+#сверка слова и подслова
+2, aa-0, aa,NNN
+2, bb-0, bb,NNN
+2, ##-0, ##,NNN
+2,   -0,   ,NNN
+
+2, #a-0, #a,NNN
+2, #b-0, #b,NNN
+
+2,aaa-2,aaa,LLL
+2,abb-4,abb,NLL
+2,a##-2,a##,LLL
+
+2,baa-4,baa,NLL
+2,abb-2,abb,LLL
+2,a##-2,a##,LLL
+
+2,#aa-2,#aa,LLL
+2,#bb-2,#bb,LLL
+2,###-2,###,LLL
+
+2,a  -3,a  ,NRR
+2,b  -3,b  ,NRR
+2,#  -3,#  ,NRR
+
+#сдвиг до конца влево по 2 и 3 линиям и затем состояние 2
+3,a  -3,a  ,NLL
+3,b  -3,b  ,NLL
+3,#  -3,#  ,NLL
+
+3,aaa-3,aaa,NRR
+3,baa-3,baa,NRR
+3,#aa-3,#aa,NRR
+
+3,abb-3,abb,NRR
+3,bbb-3,bbb,NRR
+3,#bb-3,#bb,NRR
+
+3,a##-3,a##,NRR
+3,b##-3,b##,NRR
+3,###-3,###,NRR
+
+3,a#a-3,a#a,NRR
+3,b#a-3,b#a,NRR
+3,##a-3,##a,NRR
+
+3,a#b-3,a#b,NRR
+3,b#b-3,b#b,NRR
+3,##b-3,##b,NRR
+
+#сдвиг до конца влево по всем линиям затем состояние 5
+4,   -5,   ,LLL
+
+2, aa-0, aa,NRR
+2, bb-0, bb,NRR
+2, ##-0, ##,NRR
+
+4, #a-4, ##,NRR
+4, #a-4, ##,NRR
+4, #a-4, ##,NRR
+
+4, #b-4, ##,NRR
+4, #b-4, ##,NRR
+4, #b-4, ##,NRR
+
+4,a  -4,a  ,RNN
+4,b  -4,b  ,RNN
+4,#  -4,#  ,RNN
+
+4,aaa-4,aaa,RRR
+4,baa-4,baa,RRR
+4,#aa-4,#aa,RRR
+
+4,abb-4,abb,RRR
+4,bbb-4,bbb,RRR
+4,#bb-4,#bb,RRR
+
+4,a##-4,a##,RRR
+4,b##-4,b##,RRR
+4,###-4,###,RRR
+
+4,a#a-4,a##,RRR
+4,b#a-4,b##,RRR
+4,##a-4,###,RRR
+
+4,a#b-4,a##,RRR
+4,b#b-4,b##,RRR
+4,##b-4,###,RRR
+
+#Запись нового подслова
+5,a  -3,aaa,LNN
+5,b  -3,bbb,LNN
+5,#  -3,###,LNN
+
+5,aaa-5,aaa,NLL
+5,baa-5,baa,NLL
+5,#aa-5,#aa,NLL
+
+5,abb-5,abb,NLL
+5,bbb-5,bbb,NLL
+5,#bb-5,#bb,NLL
+
+5,a##-5,a##,NLL
+5,b##-5,b##,NLL
+5,###-5,###,NLL
+
+5,a#a-5,a#a,NLL
+5,b#a-5,b#a,NLL
+5,##a-5,##a,NLL
+
+5,a#b-5,a#b,NLL
+5,b#b-5,b#b,NLL
+5,##b-5,##b,NLL
+
+

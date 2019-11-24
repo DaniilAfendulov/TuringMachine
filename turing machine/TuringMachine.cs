@@ -56,7 +56,11 @@ namespace turing_machine
                     break;
                 case Direct.L:
                     _index--;
-                    if (_index == 0) _word.Insert(0, ' ');
+                    if (_index == 0)
+                    {
+                        _word.Insert(0, ' ');
+                        _index++;
+                    }
                     break;
                 case Direct.N:
                     break;

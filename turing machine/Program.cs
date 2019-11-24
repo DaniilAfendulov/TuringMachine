@@ -2,6 +2,7 @@
 //Реализация Машины Тьюринга
 
 
+using System;
 using System.IO;
 
 namespace turing_machine
@@ -11,7 +12,8 @@ namespace turing_machine
         static void Main(string[] args)
         {
             string path = @"..\..\TuringMachinePrograms\" + File.ReadAllText(@"..\..\name.txt");
-            TuringMachine.StartFromFile(path);
+            MultytapeTuringMachine.StartFromFile(path);
+            Console.ReadLine();
         }
 
 
